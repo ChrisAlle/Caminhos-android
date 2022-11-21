@@ -1,0 +1,28 @@
+Acheron        Echus Overlook  230  100
+Arena          Burroughs       100   60
+Arrakeen       Gondor          350  100
+Arrakeen       Nicosia         220   75
+Bakhuysen      Odessa          140   65
+Bradbury       Odessa          480  160
+Bradbury       Underhill       300  110
+Burroughs      Dumont          380   95
+Burroughs      Lowell          398  120
+Cairo          Echus Overlook  190   90
+Cairo          Senzeni Na      200   80
+Cairo          Sheffield       110   70
+Cairo          Underhill       400  120
+Dumont         Underhill       405  110
+Echus Overlook Sheffield       170   80
+Esperanca      Odessa          403  100
+Gondor         Lowell          200   80
+Gondor         Moria           120   60
+Gondor         Senzeni Na      550  200
+Gondor         Temperanca      390  110
+Lakefront      Odessa          101   50
+Lakefront      Rowan           210   95
+Nicosia        Sheffield        30   30
+Odessa         Perseveranca    150   75
+Odessa         Rowan           110   60
+Odessa         Temperanca      235   90
+Rowan          Underhill       414  130
+Sheffield      Tharsis          40  100
