@@ -1,0 +1,4 @@
+arquivo json
+construção do caminho
+passar de forms para android
+genericos
