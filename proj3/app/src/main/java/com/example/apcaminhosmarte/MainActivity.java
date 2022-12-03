@@ -9,12 +9,17 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
+    Cidade cidades[];
+    CaminhosEntreCidades caminhos[];
+    int matrizDeAdjacencias[][];
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
     }
 
     public String loadCidades() {
