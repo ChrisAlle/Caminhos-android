@@ -30,6 +30,14 @@ public class Cidade {
         coordenadaY = 0;
     }
 
+    public Cidade(String nome)
+    {
+        setNome(nome);
+        coordenadaX = 0;
+        coordenadaY = 0;
+    }
+
+
     public Cidade(String nome, double x, double y)
     {
         setNome(nome);
