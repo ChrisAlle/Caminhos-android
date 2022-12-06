@@ -14,6 +14,8 @@ import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Stack;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,13 +28,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try
-        {
+        try {
             JSONObject cd = new JSONObject(loadCidades());
             JSONArray cds = cd.getJSONArray("");
 
-            for(int i = 0; i < cds.length(); i++)
-            {
+            for (int i = 0; i < cds.length(); i++) {
                 JSONObject obj = cds.getJSONObject(i);
                 String nome = obj.getString("nomeCidade");
                 int coordenadaX = obj.getInt("coordenadaX");
@@ -42,18 +42,16 @@ public class MainActivity extends AppCompatActivity {
                 cidades[i].setX(coordenadaX);
                 cidades[i].setY(coordenadaY);
             }
-                
 
-        }catch (JSONException e){
+
+        } catch (JSONException e) {
         }
 
-        try
-        {
+        try {
             JSONObject cm = new JSONObject(loadDistanciaEntreCidades());
             JSONArray cms = cm.getJSONArray("");
 
-            for(int i = 0; i < cms.length(); i++)
-            {
+            for (int i = 0; i < cms.length(); i++) {
                 JSONObject obj = cms.getJSONObject(i);
                 String cidadeDeOrigem = obj.getString("cidadeDeOrigem");
                 String cidadeDeDestino = obj.getString("cidadeDeDestino");
@@ -67,13 +65,11 @@ public class MainActivity extends AppCompatActivity {
                 caminhos[i].setTempo(tempo);
                 caminhos[i].setCusto(custo);
             }
-        }catch (JSONException e)
-        {
+        } catch (JSONException e) {
 
         }
 
-        for(CaminhosEntreCidades caminho : caminhos)
-        {
+        for (CaminhosEntreCidades caminho : caminhos) {
             int origem = Arrays.asList(cidades).indexOf(new Cidade(caminho.getOrigem()));
             int destino = Arrays.asList(cidades).indexOf(new Cidade(caminho.getDestino()));
 
@@ -82,20 +78,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public ArrayList<Cidade> caminhoRecursivo(Cidade anterior, Cidade destino)
-    {
-        ArrayList<Cidade> caminho = null;
-        Cidade atual = anterior;
-        if(atual == anterior)
-            return caminho;
-        else
-        {
-
+    public void setCaminhosRec(int origem, int destino) {
+        int atual = origem;
+        int prox = 0;
+        Stack<Movimento> pilha = new Stack<Movimento>();
+        Boolean[] visitadas = new Boolean[cidades.length];
+        for (int i = 0; i < cidades.length; i++) {
+            visitadas[i] = false;
         }
+        visitadas[origem] = true;
 
+        caminhosRec(origem, destino, atual, prox);
 
-        return caminho;
     }
+
+    public void caminhosRec(int origem, int destino, int atual, int prox)
+    {
+
+    }
+
 
 
     public String loadCidades()
