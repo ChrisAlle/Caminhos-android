@@ -1,80 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="36dp"
             android:layout_height="27dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="De:"
             android:textSize="20sp"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="45dp"
             android:layout_height="27dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="48dp"
             android:text="Para:"
             android:textSize="20sp"
-            tools:layout_editor_absoluteX="17dp"
-            tools:layout_editor_absoluteY="50dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <RadioButton
-            android:id="@+id/radioButton"
-            android:layout_width="98dp"
-            android:layout_height="38dp"
-            android:text="Recursão"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="95dp" />
-
-        <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/rbDijkstra"
             android:layout_width="81dp"
             android:layout_height="39dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="132dp"
             android:text="Dijkstra"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="133dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnBuscar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="108dp"
             android:hapticFeedbackEnabled="true"
+            android:onClick="onClickBtnBuscar"
             android:text="Buscar"
             app:iconTint="#B80606"
-            tools:layout_editor_absoluteX="125dp"
-            tools:layout_editor_absoluteY="111dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/dropOrigem"
             android:layout_width="156dp"
             android:layout_height="28dp"
-            tools:layout_editor_absoluteX="70dp"
-            tools:layout_editor_absoluteY="16dp" />
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/dropDestino"
             android:layout_width="156dp"
             android:layout_height="28dp"
-            tools:layout_editor_absoluteX="70dp"
-            tools:layout_editor_absoluteY="48dp" />
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="651dp"
-            android:layout_height="377dp"
+            android:layout_width="649dp"
+            android:layout_height="397dp"
             android:layout_marginEnd="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,6 +85,28 @@
             app:layout_constraintVertical_bias="0.058"
             app:srcCompat="@drawable/mars_political_map_by_axiaterraartunion_d4vfxdf" />
 
+        <TextView
+            android:id="@+id/txtCaminho"
+            android:layout_width="204dp"
+            android:layout_height="213dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <RadioButton
+            android:id="@+id/rbRecursao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recursao"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintHorizontal_bias="0.02"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.234" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

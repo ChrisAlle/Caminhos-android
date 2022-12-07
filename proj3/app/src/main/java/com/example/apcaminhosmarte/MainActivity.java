@@ -4,6 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.renderscript.ScriptGroup;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,15 +27,29 @@ import java.util.Stack;
 public class MainActivity extends AppCompatActivity {
 
     Cidade[] cidades;
+    String[] nomesCidades;
     CaminhosEntreCidades[] caminhos;
     int[][] matrizDeAdjacencias;
+    ValoresDoCaminho[][] valores;
+    Spinner dropOrigem;
+    Spinner dropDestino;
+    Button btnBuscar;
+    TextView txtCaminho;
+    RadioButton rbRecursao;
+    RadioButton rbDijkstra;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
+         dropOrigem = (Spinner) findViewById(R.id.dropOrigem);
+         dropDestino = (Spinner) findViewById(R.id.dropDestino);
+         btnBuscar = (Button) findViewById(R.id.btnBuscar);
+         txtCaminho = (TextView) findViewById(R.id.txtCaminho);
+         rbRecursao = (RadioButton) findViewById(R.id.rbRecursao);
+         rbDijkstra = (RadioButton) findViewById(R.id.rbDijkstra);
+         try {
             JSONObject cd = new JSONObject(loadCidades());
             JSONArray cds = cd.getJSONArray("");
 
@@ -41,11 +62,17 @@ public class MainActivity extends AppCompatActivity {
                 cidades[i].setNome(nome);
                 cidades[i].setX(coordenadaX);
                 cidades[i].setY(coordenadaY);
+                nomesCidades[i] = nome;
             }
 
 
         } catch (JSONException e) {
         }
+
+         ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, nomesCidades);
+         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+         dropOrigem.setAdapter(ad);
+         dropDestino.setAdapter(ad);
 
         try {
             JSONObject cm = new JSONObject(loadDistanciaEntreCidades());
@@ -74,7 +101,39 @@ public class MainActivity extends AppCompatActivity {
             int destino = Arrays.asList(cidades).indexOf(new Cidade(caminho.getDestino()));
 
             matrizDeAdjacencias[origem][destino] = caminho.getDistancia();
+            valores[origem][destino] = new ValoresDoCaminho(origem, destino, caminho.getDistancia(), caminho.getTempo(), caminho.getCusto());
         }
+
+
+
+    }
+
+    public void onClickBtnBuscar(View v) {
+        if (dropOrigem.getSelectedItem() == null)
+            Toast.makeText(getApplicationContext(),
+                            "aaa",
+                            Toast.LENGTH_LONG)
+                    .show();
+        if (dropDestino.getSelectedItem() == null)
+            Toast.makeText(getApplicationContext(),
+                            "bbb",
+                            Toast.LENGTH_LONG)
+                    .show();
+        if (rbRecursao.isSelected()) {
+            int origem = Arrays.asList(nomesCidades).indexOf(dropOrigem.getSelectedItem().toString());
+            int destino = Arrays.asList(nomesCidades).indexOf(dropDestino.getSelectedItem().toString());
+            setCaminhosRec(origem, destino);
+        } else if (rbDijkstra.isSelected())
+        {
+
+        }
+        else
+            Toast.makeText(getApplicationContext(),
+                            "ccc",
+                            Toast.LENGTH_LONG)
+                    .show();
+
+
 
     }
 
@@ -88,13 +147,36 @@ public class MainActivity extends AppCompatActivity {
         }
         visitadas[origem] = true;
 
-        caminhosRec(origem, destino, atual, prox);
+        caminhosRec(origem, destino, atual, prox, visitadas, pilha);
 
     }
 
-    public void caminhosRec(int origem, int destino, int atual, int prox)
-    {
+    public void caminhosRec(int origem, int destino, int atual, int prox, Boolean[] visitadas, Stack<Movimento> movimentos) {
+        if (prox < visitadas.length) {
+            if (prox == destino && matrizDeAdjacencias[atual][prox] != 0) {
+                ValoresDoCaminho valor = valores[atual][prox];
+                movimentos.push(new
+                        Movimento(atual, prox, valor));
+                prox++;
 
+            } else if (matrizDeAdjacencias[atual][prox] == 0 || visitadas[prox]) {
+                prox++;
+                caminhosRec(origem, destino, atual, prox, visitadas, movimentos);
+            } else {
+                visitadas[atual] = true;
+                ValoresDoCaminho valor = valores[atual][prox];
+                movimentos.push(new Movimento(atual, prox, valor));
+                atual = prox;
+                prox = 0;
+                caminhosRec(origem, destino, atual, prox, visitadas, movimentos);
+            }
+        } else if (!movimentos.empty())
+        {
+            Movimento ultimoMovimento = movimentos.pop();
+            atual = ultimoMovimento.getOrigem();
+            prox = ultimoMovimento.getDestino() + 1;
+            caminhosRec(origem, destino, atual, prox, visitadas, movimentos);
+        }
     }
 
 
